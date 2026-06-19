@@ -14,9 +14,9 @@
 #' @importFrom dplyr filter select rename mutate
 #' @importFrom tidyr crossing
 build_route_query_table <- function(
-    station_data,
-    query_date,
-    query_times = c("07:00", "09:00", "12:00", "16:00", "18:00")
+  station_data,
+  query_date,
+  query_times = c("07:00", "09:00", "12:00", "16:00", "18:00")
 ) {
   .data <- rlang::.data
 

@@ -26,7 +26,7 @@ read_station_data <- function(target_group) {
     )
   }
 
-  # Read using semicolon separation
+  # Read using comma separation
   station_data <- readr::read_delim(
     file = file_path,
     delim = ","
