@@ -10,11 +10,11 @@
 #' @export
 #'
 #' @importFrom readr read_delim
-#' @importFrom dplyr filter rename_with
+#' @importFrom dplyr filter select
 read_station_data <- function(target_group) {
   .data <- rlang::.data
 
-  # Locate the file inside inst/extdata safely across environments
+  # Locate the file inside inst/extdata
   file_path <- system.file(
     "extdata", "SwissCities.csv",
     package = "swiss.public.transport"
@@ -31,7 +31,8 @@ read_station_data <- function(target_group) {
     file = file_path,
     delim = ","
   ) |>
-    dplyr::filter(.data$group_id == target_group)
+    dplyr::filter(.data$group_id == target_group) |>
+    dplyr::select(-.data$group_id)
 
   if (nrow(station_data) == 0) {
     warning(paste("No data found for group ID:", target_group))
