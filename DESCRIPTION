@@ -13,4 +13,5 @@ Imports:
     jsonlite,
     purrr,
     readr,
-    rlang
+    rlang,
+    tidyr
