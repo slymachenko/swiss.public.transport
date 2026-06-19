@@ -16,8 +16,8 @@
 #' @importFrom dplyr filter pull
 #' @importFrom sf read_sf st_transform
 #' @importFrom ggplot2 ggplot geom_sf geom_path geom_point geom_sf_text aes
-#' scale_color_brewer labs coord_sf theme_minimal theme element_rect
-#' element_blank element_text margin
+#' @importFrom scale_color_brewer labs coord_sf theme_minimal theme element_rect
+#' @importFrom element_blank element_text margin
 plot_route_map <- function(route_points, station_data) {
   .data <- rlang::.data
 
