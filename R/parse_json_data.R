@@ -62,7 +62,7 @@ combine_parsed_queries <- function(query_table, cache_dir = "cache") {
   all_routes <- purrr::pmap_dfr(query_table, function(...) {
     row_data <- list(...)
 
-    # Replace colons in time to avoid OS file system errors
+    # Replace colomns in time to avoid OS file system errors
     safe_time <- gsub(":", "-", row_data$query_time)
 
     # Ensure date is a string to avoid formatting issues
