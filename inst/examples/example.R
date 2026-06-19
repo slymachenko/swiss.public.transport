@@ -11,8 +11,13 @@
 library(swiss.public.transport)
 
 # Using a temporary directory keeps the user's workspace clean
-cache_dir <- file.path(tempdir(), "swiss_transport_cache")
-output_map <- "waiting_time_map.png"
+cache_dir <- "cache"
+figs_dir <- file.path("figs")
+output_map <- file.path(figs_dir, "waiting_time_map.png")
+if (!dir.exists(figs_dir)) {
+  dir.create(figs_dir, recursive = TRUE)
+  message("Created figs directory: ", figs_dir)
+}
 
 # Read regional station data
 station_data <- read_station_data(target_group = 2)
@@ -30,7 +35,7 @@ populate_route_cache(query_table, cache_dir = cache_dir)
 # Parse all cached responses into one tidy data frame
 parsed_queries <- combine_parsed_queries(query_table, cache_dir = cache_dir)
 
-# Compute waiting-time indicators
+# Compute waiting-time indicatorscache_dir <- "cache"
 waiting_times <- compute_waiting_time(parsed_queries)
 waiting_summary <- summarise_waiting(waiting_times)
 
