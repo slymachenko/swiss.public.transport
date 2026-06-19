@@ -1,13 +1,14 @@
 Package: swiss.public.transport
 Title: Swiss Public Transport Data Analysis and Visualization
 Version: 0.0.0.9000
-Authors@R: 
-    person("Arsenii", "Bryndin", , "arsenii.bryndin@student.supsi.com")
-    person("Federico Michele", "Panceri", , "federico.panceri@student.supsi.com")
-    person("Joshua David", "Moshi", , "joshua.moshi@student.supsi.com")
-    person("Petar Hristov", "Neykov", , "petar.neykov@student.supsi.com")
-    person("Louie", "Daans", , "louie.daans@student.supsi.com")
-    person("Mattia", "Loi", , "mattia.loi@student.supsi.com")
+Authors@R: c(
+    person(given = "Arsenii", family = "Bryndin", email = "arsenii.bryndin@student.supsi.com", role = c("aut", "cre")),
+    person(given = "Petar Hristov", family = "Neykov", email = "petar.neykov@student.supsi.com", role = "aut"),
+    person(given = "Joshua David", family = "Moshi", email = "joshua.moshi@student.supsi.com", role = "aut"),
+    person(given = "Louie", family = "Daans", email = "louie.daans@student.supsi.com", role = "aut"),
+    person(given = "Federico Michele", family = "Panceri", email = "federico.panceri@student.supsi.com", role = "aut"),
+    person(given = "Mattia", family = "Loi", email = "mattia.loi@student.supsi.com", role = "aut")
+  )
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
