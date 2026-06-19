@@ -1,7 +1,7 @@
 #' @title Parse API JSON Response into a Tidy Table
 #'
-#' @description Extracts connection details from the raw nested list returned by
-#' the search.ch API and formats them into a tidy data frame.
+#' @description Extracts connection details from the raw JSON files
+#' and formats them into a tidy data frame.
 #'
 #' @param api_response A list containing the parsed JSON
 #' (e.g., loaded from a cached .rds file).
@@ -12,32 +12,33 @@
 #' @importFrom purrr map_dfr pluck
 #' @importFrom tibble tibble
 parse_route_data <- function(api_response) {
-
   # Return an empty tibble if the response is empty or has no connections
-  if (is.null(api_response$connections) || length(api_response$connections) == 0) {
+  if (
+    is.null(api_response$connections) || length(api_response$connections) == 0
+  ) {
     return(tibble::tibble())
   }
 
   # Iterate over each connection and extract key data into a tibble
   parsed_data <- purrr::map_dfr(api_response$connections, function(conn) {
-
     # Calculate transfers based on the 'legs' array length
-    # Subtract 2 because a direct connection has 2 legs (1 travel leg + 1 arrival node)
+    # Subtract 2 because a direct connection has 2 legs
+    # (1 travel leg + 1 arrival node)
     legs_list <- purrr::pluck(conn, "legs", .default = list())
     num_transfers <- max(0L, as.integer(length(legs_list)) - 2L)
 
     tibble::tibble(
       departure = purrr::pluck(conn, "departure", .default = NA_character_),
-      arrival   = purrr::pluck(conn, "arrival",   .default = NA_character_),
-      duration  = as.numeric(purrr::pluck(conn, "duration", .default = NA_real_)),
+      arrival = purrr::pluck(conn, "arrival", .default = NA_character_),
+      duration = as.numeric(
+        purrr::pluck(conn, "duration", .default = NA_real_)
+      ),
       transfers = num_transfers
     )
   })
 
-  return(parsed_data)
+  parsed_data
 }
-
-
 
 #' @title Parse and Combine All Cached Route Queries
 #'
@@ -57,12 +58,11 @@ parse_route_data <- function(api_response) {
 combine_parsed_queries <- function(query_table, cache_dir = "cache") {
   .data <- rlang::.data
 
-  # Use purrr::pmap_dfr to iterate over each row of the query table
+  # Iterate over each row of the query table
   all_routes <- purrr::pmap_dfr(query_table, function(...) {
     row_data <- list(...)
 
-    # MATCH THE NEW CACHE FILENAME LOGIC:
-    # "route_{from}_{to}_{date}_{HH-MM}.rds"
+    # Replace colons in time to avoid OS file system errors
     safe_time <- gsub(":", "-", row_data$query_time)
 
     # Ensure date is a string to avoid formatting issues
@@ -111,8 +111,8 @@ combine_parsed_queries <- function(query_table, cache_dir = "cache") {
           dplyr::everything()
         )
     }
-    return(parsed_data)
+    parsed_data
   })
 
-  return(all_routes)
+  all_routes
 }
