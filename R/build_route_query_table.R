@@ -11,7 +11,7 @@
 #' @return A tidy tibble containing route query combinations.
 #' @export
 #'
-#' @importFrom dplyr filter select rename mutate
+#' @importFrom dplyr filter select
 #' @importFrom tidyr crossing
 build_route_query_table <- function(
   station_data,
