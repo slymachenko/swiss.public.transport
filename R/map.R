@@ -16,8 +16,8 @@
 #' @importFrom dplyr left_join filter pull
 #' @importFrom sf st_as_sf read_sf st_transform st_bbox st_as_sfc
 #' @importFrom ggplot2 ggplot geom_sf geom_sf_text aes scale_color_gradientn
-#' scale_size_continuous labs coord_sf theme_minimal theme element_rect
-#' element_blank element_text margin
+#' @importFrom ggplot2 scale_size_continuous labs coord_sf theme_minimal
+#' @importFrom ggplot2 theme element_rect element_blank element_text margin
 plot_accessibility_map <- function(waiting_times_data, station_data) {
   .data <- rlang::.data
 
