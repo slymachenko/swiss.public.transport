@@ -25,4 +25,20 @@ get_route <- function(from, to, date, time, num = 5) {
 
   result <- NULL
 
+  for (attempt in 1:3) {
+    result <- tryCatch(
+      jsonlite::fromJSON(url, simplifyVector = FALSE), error = function(e) NULL)
+
+    if (!is.null(result)) break
+
+    if (attempt < 3) {
+      wait <- 30 * attempt
+      message("Rate limited (429). Waiting ", wait, "s before retry ", attempt + 1, "/3...")
+      Sys.sleep(wait)
+    } else {
+      stop("API still returning 429 after 3 attempts for: ", url)
+    }
+  }
+
+  result
 }
