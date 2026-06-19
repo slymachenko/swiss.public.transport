@@ -1,8 +1,13 @@
 Package: swiss.public.transport
-Title: What the Package Does (One Line, Title Case)
+Title: Swiss Public Transport Data Analysis and Visualization
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+    person("Arsenii", "Bryndin", , "arsenii.bryndin@student.supsi.com")
+    person("Federico Michele", "Panceri", , "federico.panceri@student.supsi.com")
+    person("Joshua David", "Moshi", , "joshua.moshi@student.supsi.com")
+    person("Petar Hristov", "Neykov", , "petar.neykov@student.supsi.com")
+    person("Louie", "Daans", , "louie.daans@student.supsi.com")
+    person("Mattia", "Loi", , "mattia.loi@student.supsi.com")
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
