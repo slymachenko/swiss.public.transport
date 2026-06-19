@@ -1,27 +1,40 @@
 # swiss.public.transport
 
-An R package to download, analyze and visualize public transport
-accessibility in Switzerland, using the
-[search.ch timetable API](https://search.ch/timetable/api/help).
+An R package to download, analyze and visualize public transport accessibility in Switzerland, using the [search.ch timetable API](https://search.ch/timetable/api/help).
 
-Starting from a regional origin station, the package queries connections to the
-destination stations of the same region and computes a **waiting-time
-accessibility indicator**: how long a traveller has to wait, at selected query
-times, for the next available departure to each destination.
+Starting from a regional origin station, the package queries connections to the destination stations of the same region and computes a waiting-time accessibility indicator: how long a traveller has to wait, at selected query times, for the next available departure to each destination.
+
+## Example Figure
+
+![An example figure](figs/waiting_time_map.png)
 
 ## Installation
 
-You can install this package directly from the source tarball (`.tar.gz` file).
+You can install `swiss.public.transport` directly from the source tarball (`.tar.gz`). Because this package includes spatial mapping features, it requires a few external system libraries to be installed on your computer first.
 
-1. Download the `swiss.public.transport.tar.gz` file to your local machine.
-2. Open your R console or RStudio.
-3. Run the following command, replacing the path with the actual file path on your machine:
+### Install System Prerequisites
+
+Before opening R, open your system terminal (not the R console) and run the command for your operating system:
+
+* **Ubuntu / Debian Linux:**
+  ```bash
+  sudo apt-get update
+  sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev
+  ```
+* **macOS (using Homebrew):**
+  ```bash
+  brew install udunits gdal geos proj
+  ```
+* **Windows:** You can skip this step, but ensure you have [Rtools](https://cran.r-project.org/bin/windows/Rtools/) installed to compile source packages.
+
+### Install Required Packages
+
+Once the system prerequisites are met, open R or RStudio.
 
 ```R
+install.packages("sf")
 install.packages("path/to/swiss.public.transport.tar.gz", repos = NULL, type = "source")
-
-The package depends on `sf` (for the maps), which requires the system libraries
-GDAL, GEOS and PROJ.
+```
 
 ## Workflow
 
@@ -78,9 +91,6 @@ source(system.file("examples", "example.R", package = "swiss.public.transport"))
 
 ## Notes
 
-- Caching is mandatory: the first run calls the API, later runs read the local
-  `.rds` files. Keep to a single weekday and at most 5 query times.
-- The base map is read from the shapefile in `inst/extdata/` and reprojected to
-  longitude/latitude (EPSG:4326).
-- Tested with `testthat` (`devtools::test()`); the package passes
-  `devtools::check()`.
+- Caching is mandatory: the first run calls the API, later runs read the local `.rds` files. Keep to a single weekday and at most 5 query times.
+- The base map is read from the shapefile in `inst/extdata/` and reprojected to longitude/latitude (EPSG:4326).
+- Tested with `testthat` (`devtools::test()`); the package passes `devtools::check()`.
