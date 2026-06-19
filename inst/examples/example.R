@@ -14,6 +14,7 @@ library(swiss.public.transport)
 cache_dir <- "cache"
 figs_dir <- file.path("figs")
 output_map <- file.path(figs_dir, "waiting_time_map.png")
+output_route_map <- file.path(figs_dir, "waiting_time_route_map.png")
 if (!dir.exists(figs_dir)) {
   dir.create(figs_dir, recursive = TRUE)
   message("Created figs directory: ", figs_dir)
@@ -45,3 +46,13 @@ print(map)
 
 message("Saving map to: ", getwd(), "/", output_map)
 ggplot2::ggsave(output_map, map, width = 8, height = 6, dpi = 300)
+
+# Optional: extract route legs (tidy leg table) and the ordered stop sequence,
+# then draw the simplified route map as polylines through real stops
+legs <- combine_parsed_legs(query_table, cache_dir = cache_dir)
+route_points <- combine_parsed_points(query_table, cache_dir = cache_dir)
+route_map <- plot_route_map(route_points, station_data)
+print(route_map)
+
+message("Saving route map to: ", getwd(), "/", output_route_map)
+ggplot2::ggsave(output_route_map, route_map, width = 8, height = 6, dpi = 300)
