@@ -32,7 +32,7 @@ read_station_data <- function(target_group) {
     delim = ","
   ) |>
     dplyr::filter(.data$group_id == target_group) |>
-    dplyr::select(-.data$group_id)
+    dplyr::select(-"group_id")
 
   if (nrow(station_data) == 0) {
     warning(paste("No data found for group ID:", target_group))

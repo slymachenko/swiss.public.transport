@@ -27,16 +27,16 @@ build_route_query_table <- function(
   origin <- station_data |>
     dplyr::filter(.data$is_origin == TRUE) |>
     dplyr::select(
-      region = .data$region,
-      from_city = .data$city,
-      from_station_id = .data$station_id
+      region = "region",
+      from_city = "city",
+      from_station_id = "station_id"
     )
 
   destinations <- station_data |>
     dplyr::filter(.data$is_origin == FALSE) |>
     dplyr::select(
-      to_city = .data$city,
-      to_station_id = .data$station_id
+      to_city = "city",
+      to_station_id = "station_id"
     )
 
   query_table <- tidyr::crossing(
